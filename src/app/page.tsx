@@ -1,21 +1,22 @@
 'use client'
-import { useEffect } from 'react'
-import getWeather from '../services/api/getWeather'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import WeatherDisplay from '../components/WeatherDisplay'
-import LocationDisplay from '@/components/LocationDisplay'
 
 export default function Home() {
 
-  // useEffect(() => {
-  //   getWeather('London')}, 
-  // [])
+  const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false
+        }
+      }
+  });
 
   return (
-    <main className="flex flex-col items-center justify-between min-h-screen p-24">
-      <div>
-        <LocationDisplay name='London' region='City of London, Greater London' country='United Kingdom'/>
-        <WeatherDisplay text='Light rain' icon='//cdn.weatherapi.com/weather/64x64/day/296.png'/>
-      </div>
-    </main>
+    <QueryClientProvider client={queryClient}>
+      <main className="flex flex-col items-center justify-between min-h-screen p-24">
+          <WeatherDisplay location="London" />
+      </main>
+    </QueryClientProvider>
   )
 }

@@ -11,8 +11,6 @@ pnpm dev
 ```
 
 todo
-- make request
-- render data
 - search bar with debounce and spinner
 - UT everything
 - polish UX

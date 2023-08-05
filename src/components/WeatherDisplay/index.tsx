@@ -1,12 +1,28 @@
-/* eslint-disable @next/next/no-img-element */
+import { useQuery } from "@tanstack/react-query"
+import getWeather from "../../services/api/getWeather"
+import Weather from "./Weather"
+import Location from "./Location"
+import { type WeatherType } from '../../types/Weather'
+
 type WeatherDisplayProps = {
-    text: string,
-    icon: string
+    location: string
 }
 
-const WeatherDisplay = ({text, icon}:WeatherDisplayProps) => <div className="flex flex-col items-center">
-    <img src={icon} alt={`image: ${text}`} />
-    <h1 className="m-2 text-xl font-semibold">{text}</h1>
-</div>
+const WeatherDisplay = ({ location }: WeatherDisplayProps) => {
+
+    const { data, isLoading, isError } = useQuery(['weather', location], () => getWeather(location))
+
+    if (isLoading) return <p>Loading...</p>
+    if (isError) return <p>Error</p>
+
+    const weatherData: WeatherType = data.data;
+
+    return (
+        <div className="flex flex-col items-center">
+            <Location {...weatherData.location} />
+            <Weather {...weatherData.current} />
+        </div>
+    )
+}
 
 export default WeatherDisplay
