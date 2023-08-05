@@ -1,16 +1,22 @@
 'use client'
-import { useEffect } from 'react'
-import getWeather from '../services/api/getWeather'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import WeatherDisplay from '../components/WeatherDisplay'
 
 export default function Home() {
 
-  useEffect(() => {
-    getWeather('London')}, 
-  [])
+  const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false
+        }
+      }
+  });
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      hello world
-    </main>
+    <QueryClientProvider client={queryClient}>
+      <main className="flex flex-col items-center justify-between min-h-screen p-10 md:p-24">
+        <WeatherDisplay location="London" />
+      </main>
+    </QueryClientProvider>
   )
 }
