@@ -19,8 +19,10 @@ export default function Home() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <main className="flex flex-col items-center justify-between min-h-screen p-10 md:p-24">
-        <SearchBar setSearch={setSearch}/>
+      <main className="flex flex-col items-center min-h-screen p-10 md:p-24">
+        <div className='w-full max-w-lg p-2 md:p-6'>
+          <SearchBar setSearch={setSearch}/>
+        </div>
         <WeatherDisplay location={search} />
       </main>
     </QueryClientProvider>
