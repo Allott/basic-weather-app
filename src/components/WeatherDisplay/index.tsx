@@ -9,17 +9,34 @@ type WeatherDisplayProps = {
     location: string
 }
 
+type errorData = {
+    response: {
+        data: {
+            error: {
+                message: string
+            }
+        }
+    }
+}
+
 const WeatherDisplay = ({ location }: WeatherDisplayProps) => {
 
-    const { data, isLoading, isError } = useQuery(
+    const { data, isLoading, isError, error } = useQuery(
         ['weather', location], 
         () => getWeather(location),
-        {enabled: !!location}
+        {
+            enabled: !!location,
+            retry: false,
+        }
     )
 
     if (!location) return <P text='Enter a city in the search box above' />
     if (isLoading) return <P text='Loading...' />
-    if (isError) return <P text='Error' />
+
+    if (isError) {
+        const errorData: errorData = error as errorData
+        return <P text={errorData?.response?.data?.error?.message || 'Something went wrong'} />
+    }
 
     const weatherData: WeatherType = data.data;
 

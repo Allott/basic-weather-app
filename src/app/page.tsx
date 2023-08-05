@@ -15,7 +15,6 @@ export default function Home() {
   });
   
   const [search, setSearch] = useState('')
-  console.log(search)
 
   return (
     <QueryClientProvider client={queryClient}>

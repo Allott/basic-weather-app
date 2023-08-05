@@ -51,4 +51,11 @@ describe('WeatherDisplay', () => {
         renderWeatherDisplay();
         expect(screen.getByText(/Loading/)).toBeInTheDocument()
     });
+    it('should handle error state', async () => {
+        getWeather.mockImplementationOnce(() => Promise.reject());
+        renderWeatherDisplay();
+        await waitFor(() => {
+            expect(screen.getByText(/Something went wrong/)).toBeInTheDocument();
+        });
+    });
 });
