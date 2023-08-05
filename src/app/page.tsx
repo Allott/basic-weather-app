@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <main className="flex flex-col items-center justify-between min-h-screen p-24">
+      <main className="flex flex-col items-center justify-between min-h-screen p-10 md:p-24">
           <WeatherDisplay location="London" />
       </main>
     </QueryClientProvider>
