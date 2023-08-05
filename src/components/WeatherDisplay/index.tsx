@@ -11,7 +11,6 @@ type WeatherDisplayProps = {
 
 const WeatherDisplay = ({ location }: WeatherDisplayProps) => {
 
-
     const { data, isLoading, isError } = useQuery(
         ['weather', location], 
         () => getWeather(location),
